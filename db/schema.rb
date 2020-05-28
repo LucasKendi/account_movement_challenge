@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 2020_05_28_183745) do
 
   create_table "transactions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "account_number"
-    t.integer "value"
+    t.integer "amount"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
