@@ -7,7 +7,12 @@ namespace :accounts do
     accounts_file_path = "#{Dir.pwd}/#{args[:accounts_file]}"
     CSV.foreach(accounts_file_path) do |account|
       acc_number, acc_balance = account
-      Account.create!(number: acc_number, balance: acc_balance)
+      begin
+        Account.create!(number: acc_number, balance: acc_balance)
+      rescue ActiveRecord::RecordInvalid => e
+        puts "Erro na criação da conta de número #{acc_number} e saldo #{acc_balance}"
+        puts e
+      end
     end
   end
 
@@ -15,12 +20,15 @@ namespace :accounts do
     transactions_file_path = "#{Dir.pwd}/#{args[:transactions_file]}"
     CSV.foreach(transactions_file_path) do |transaction|
       transac_account, transac_amount = transaction
-
-      account = Account.find_by(number: transac_account)
-      account.balance += transac_amount.to_i
-      account.balance -= FINE if account.balance.negative? && transac_amount.to_i.negative?
-
-      Transaction.create!(account_number: transac_account, amount: transac_amount) if account.save!
+      begin
+        account = Account.find_by!(number: transac_account)
+        account.balance += transac_amount.to_i
+        account.balance -= FINE if account.balance.negative? && transac_amount.to_i.negative?
+        Transaction.create!(account_number: transac_account, amount: transac_amount) if account.save!
+      rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotFound => e
+        puts "Erro na transação para a conta #{transac_account} com a quantia #{transac_amount}"
+        puts e
+      end
     end
   end
 end

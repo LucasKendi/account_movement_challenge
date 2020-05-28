@@ -6,7 +6,7 @@ class Transaction < ApplicationRecord
   private
 
   def account_presence
-    return if Account.find_by(number: account_number).present?
+    return if Account.exists?(number: account_number)
 
     errors.add(:account_number, 'does not exists')
   end
