@@ -3,22 +3,23 @@ require 'rails_helper'
 describe Account, type: :model do
   describe 'validations' do
     context 'when number is valid' do
-      it 'has a number', :aggregate_failures do
+      it 'has an unique numerical value', :aggregate_failures do
         account = create(:account, number: 123)
 
         expect(account).to be_valid
         expect(Account.last).to eq(account)
+        expect(account.number).to eq(123)
       end
     end
 
     context 'when number is not valid' do
-      it 'does not have a number' do
+      it 'does not have a value' do
         account = build(:account, number: nil)
 
         expect(account).not_to be_valid
       end
 
-      it 'has a repeated number', :aggregate_failures do
+      it 'is not unique', :aggregate_failures do
         unique_acc = create(:account, number: 123)
 
         repeated_acc = build(:account, number: 123)
@@ -27,7 +28,7 @@ describe Account, type: :model do
         expect(repeated_acc).not_to be_valid
       end
 
-      it 'does not have a numerical number' do
+      it 'does not have a numerical value' do
         account = build(:account, number: 'two')
 
         expect(account).not_to be_valid
@@ -35,22 +36,23 @@ describe Account, type: :model do
     end
 
     context 'when balance is valid' do
-      it 'has an initial balance', :aggregate_failures do
+      it 'has an numerical value', :aggregate_failures do
         account = create(:account, balance: 4000)
 
         expect(account).to be_valid
         expect(Account.last).to eq(account)
+        expect(account.balance).to eq(4000)
       end
     end
 
     context 'when balance is not valid' do
-      it 'does not have an inital balance' do
+      it 'does not have a value' do
         account = build(:account, balance: nil)
 
         expect(account).not_to be_valid
       end
 
-      it 'does not have a numerical balance' do
+      it 'does not have a numerical value' do
         account = build(:account, balance: 'four')
 
         expect(account).not_to be_valid
