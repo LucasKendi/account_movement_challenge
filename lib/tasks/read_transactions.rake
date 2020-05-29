@@ -4,6 +4,7 @@ FINE = 300
 
 namespace :transactions do
   task :read do |_task, arg|
+    puts "Transações iniciadas em #{Time.now.strftime('%X')}"
     transactions_file_path = "#{Dir.pwd}/#{arg}"
     CSV.foreach(transactions_file_path) do |transaction|
       transac_account, transac_amount = transaction
@@ -17,5 +18,6 @@ namespace :transactions do
         puts e
       end
     end
+    puts "Transações realizadas em #{Time.now.strftime('%X')}"
   end
 end
