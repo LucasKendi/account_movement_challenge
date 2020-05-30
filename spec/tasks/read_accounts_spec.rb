@@ -13,10 +13,8 @@ describe 'rake accounts:read', type: :task do
       task.execute(file_name)
 
       expect(Account.count).to eq(2)
-      expect(Account.first.number).to eq(123)
-      expect(Account.first.balance).to eq(500)
-      expect(Account.last.number).to eq(234)
-      expect(Account.last.balance).to eq(1000)
+      expect(Account.first).to have_attributes(number: 123, balance: 500)
+      expect(Account.last).to have_attributes(number: 234, balance: 1000)
     end
 
     it 'outputs an error when the csv is wrong' do

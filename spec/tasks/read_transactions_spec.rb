@@ -14,6 +14,7 @@ describe 'rake transactions:read', type: :task do
 
       account.reload
 
+      expect(Transaction.last).to have_attributes(account_number: account.number, amount: -500)
       expect(account.balance).to eq(-800)
     end
 
