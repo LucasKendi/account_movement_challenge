@@ -1,4 +1,4 @@
-# Account movement challence
+# Account movement challenge
 
 Esse repositório é um desafio de movimentação financeira.
 
@@ -19,16 +19,16 @@ Gems adicionais:
 ## Instalação
 Clone o projeto:
 ```bash
-git clone https://github.com/LucasKendi/account_movement_challenge.git
+$ git clone https://github.com/LucasKendi/account_movement_challenge.git
 ```
 Execute o bundle:
 ```bash
-bundle
+$ bundle
 ```
 Execute as migrações:
 ```bash
-rails db:create
-rails db:migrate
+$ rails db:create
+$ rails db:migrate
 ```
 
 Caso seja necessário, altere o password do arquivo `database.yml` para o seu password do usuário root no mysql
@@ -36,14 +36,16 @@ Caso seja necessário, altere o password do arquivo `database.yml` para o seu pa
 ## Uso
 Execute a rake passando os seus arquivos csv que devem estar na raiz do projeto:
 ```bash
-rails balance:calculate[contas.csv,transacoes.csv]
+$ rails balance:calculate[contas.csv,transacoes.csv]
 ```
 Resultado esperado:
 ```bash
 Criação das contas iniciada em 22:07:36
 Criação das contas finalizada 22:07:36
+
 Transações iniciadas em 22:07:36
 Transações realizadas em 22:07:39
+
 Conta 100 com saldo de -R$52,00
 Conta 101 com saldo de R$5550,00
 Conta 102 com saldo de -R$5809,00
@@ -58,10 +60,15 @@ Conta 109 com saldo de R$225,25
 
 Um exemplo do arquivo contas.csv e transacoes.csv se encontram na raiz do projeto
 
+Rake disponível para visualizar o resumo das contas:
+```bash
+$ rails balance:summary
+```
+
 
 Para garantir a qualidade do projeto, foram desenvolvidos uma série de testes que podem ser executados com:
 ```bash
-rspec
+$ bundle exec rspec
 ```
 
 ## Licensa
